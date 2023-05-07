@@ -1,3 +1,6 @@
+const router = require('express').Router();
+const { Blog, User, Comment } = require('../models');
+
 router.post('/login', async (req, res) => {
     try {
       const userData = await User.findOne({ where: { email: req.body.email } });
@@ -22,6 +25,18 @@ router.post('/login', async (req, res) => {
   
     } catch (err) {
       console.log(err);
+      res.status(500).json(err);
+    }
+  });
+
+  // GET all blogs
+router.get('/', async (req, res) => {
+    try {
+      const blogsData = await Blog.findAll();
+      const blogs = blogsData.map((blog) => blog.get({ plain: true }));
+  
+      res.render('homepage', { blogs });
+    } catch (err) {
       res.status(500).json(err);
     }
   });

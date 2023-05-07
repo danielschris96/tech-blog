@@ -1,4 +1,5 @@
-
+const router = require('express').Router();
+const { Comment } = require('../../models');
 
 
 router.post('/blog/:id/comments', withAuth, async (req, res) => {
@@ -14,3 +15,5 @@ router.post('/blog/:id/comments', withAuth, async (req, res) => {
       res.status(400).json(err);
     }
   });
+
+  module.exports = router;
