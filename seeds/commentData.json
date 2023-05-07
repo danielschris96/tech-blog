@@ -1,0 +1,27 @@
+[
+    {
+        "text": "Great post, thanks for sharing!",
+        "user_id": 2,
+        "blog_id": 1
+    },
+    {
+        "text": "I found this very helpful, thanks!",
+        "user_id": 1,
+        "blog_id": 2
+    },
+    {
+        "text": "I have a question about this, can you help?",
+        "user_id": 2,
+        "blog_id": 3
+    },
+    {
+        "text": "This is really interesting, I hadn't thought about it before.",
+        "user_id": 3,
+        "blog_id": 4
+    },
+    {
+        "text": "Thanks for the explanation, I understand it better now.",
+        "user_id": 3,
+        "blog_id": 5
+    }
+]
