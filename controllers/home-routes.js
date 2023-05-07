@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const { Blog, User, Comment } = require('../models');
+const withAuth = require('../utils/auth')
 
-router.post('/login', async (req, res) => {
+router.post('/login', withAuth, async (req, res) => {
     try {
       const userData = await User.findOne({ where: { email: req.body.email } });
       if (!userData) {
@@ -30,7 +31,7 @@ router.post('/login', async (req, res) => {
   });
 
   // GET all blogs
-router.get('/', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
       const blogsData = await Blog.findAll();
       const blogs = blogsData.map((blog) => blog.get({ plain: true }));
@@ -40,3 +41,22 @@ router.get('/', async (req, res) => {
       res.status(500).json(err);
     }
   });
+
+  // GET dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+    try {
+      const userData = await User.findByPk(req.session.user_id, {
+        attributes: { exclude: ['password'] },
+        include: [{ model: Blog }],
+      });
+  
+      const user = userData.get({ plain: true });
+  
+      res.render('dashboard', { user, logged_in: true });
+  
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  });
+  
+  module.exports = router;

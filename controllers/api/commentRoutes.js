@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
-
+const withAuth = require('../../utils/auth');
 
 router.post('/blog/:id/comments', withAuth, async (req, res) => {
     try {
