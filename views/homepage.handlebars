@@ -1,0 +1,8 @@
+{{#each blogs}}
+<div class="blog-preview">
+  <h3><a href="/blog/{{id}}">{{title}}</a></h3>
+  <p>By {{User.username}} on {{createdAt}}</p>
+  <p>{{content}}</p>
+  <a href="/blog/{{id}}" class="btn-primary">Read More</a>
+</div>
+{{/each}}
