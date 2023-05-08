@@ -1,10 +1,10 @@
 <div class="blog-preview">
-  <h3><a href="/blog/{{id}}">{{title}}</a></h3>
-  <p>By {{User.username}} on {{createdAt}}</p>
-  <p>{{content}}</p>
-  <a href="/blog/{{id}}" class="btn-primary">Read More</a>
+  <h3><a href="/blog/${blogs[i].id}">${blogs[i].title}</a></h3>
+  <p>By ${blogs[i].User.username} on ${blogs[i].createdAt}</p>
+  <p>${blogs[i].content}</p>
+  <a href="/blog/${blogs[i].id}" class="btn-primary">Read More</a>
 
-  <form action="/blog/{{id}}/comments" method="POST">
+  <form action="/blog/${blogs[i].id}/comments" method="POST">
     <div class="form-group">
       <label for="comment-text">Add a comment:</label>
       <textarea class="form-control" id="comment-text" name="text" rows="3"></textarea>
