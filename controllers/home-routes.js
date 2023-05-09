@@ -2,18 +2,16 @@ const router = require('express').Router();
 const { Blog, User, Comment } = require('../models');
 const withAuth = require('../utils/auth.js')
 
-router.post('/login', withAuth, async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
       const userData = await User.findOne({ where: { email: req.body.email } });
       if (!userData) {
-          req.flash('error', 'Incorrect email or password');
           res.redirect('/login');
           return;
       }
 
       const validPassword = await userData.checkPassword(req.body.password);
       if (!validPassword) {
-          req.flash('error', 'Incorrect email or password');
           res.redirect('/login');
           return;
       }
@@ -56,9 +54,8 @@ router.get('/login', (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const blogsData = await Blog.findAll({
-      include: [{ model: User }, { model: Comment }]
+      include: [{ model: User }, { model: Comment, include: [{ model: User }] }]
     });
-    console.log(blogsData);
     const blogs = blogsData.map(blog => blog.get({ plain: true }));
     
     res.render('homepage', { blogs });
@@ -67,7 +64,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-
+router.get('/', (req, res) => {
+  res.render('homepage'); // render the homepage template
+});
 
 // GET dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
