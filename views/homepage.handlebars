@@ -1,14 +1,18 @@
-<div class="blog-preview">
-  <h3><a href="/blog/${blogs[i].id}">${blogs[i].title}</a></h3>
-  <p>By ${blogs[i].User.username} on ${blogs[i].createdAt}</p>
-  <p>${blogs[i].content}</p>
-  <a href="/blog/${blogs[i].id}" class="btn-primary">Read More</a>
-
-  <form action="/blog/${blogs[i].id}/comments" method="POST">
-    <div class="form-group">
-      <label for="comment-text">Add a comment:</label>
-      <textarea class="form-control" id="comment-text" name="text" rows="3"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+{{#if blogs.length}}
+  <ul>
+{{#each blogs}}
+  <div class="blog-container">
+    <h2>{{ title }}</h2>
+    <p>{{ content }}</p>
+    <p>Written by {{ user.username }}</p>
+    <h3>Comments:</h3>
+    {{#each comments}}
+      <p>{{ text }}</p>
+      <p>Comment by {{ user.username }}</p>
+    {{/each}}
+  </div>
+{{/each}}
+  </ul>
+{{else}}
+  <p>No blogs found.</p>
+{{/if}}
